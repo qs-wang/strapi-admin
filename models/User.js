@@ -30,7 +30,7 @@ module.exports = {
           await subscribe(result);
         } 
       } catch (error) {
-        log.error(error)
+        strapi.log.error(error)
       }
 
     },
@@ -46,14 +46,14 @@ module.exports = {
   async afterUpdate(result) {
     try {
       if (result.subscribed) {
-        log.info('subscribe the user to outstanding topic while model changed to have subscibe as true');
+        strapi.log.info('subscribe the user to outstanding topic while model changed to have subscibe as true');
         await subscribe(result);
       } else {
-        log.info('un-subscribe the user to outstanding topic while model changed  subscribe as false');
+        strapi.log.info('un-subscribe the user to outstanding topic while model changed  subscribe as false');
         await subscribe(result);
       }
     } catch (error) {
-      log.error(error)
+      strapi.log.error(error)
     }
   }
 };
@@ -78,7 +78,7 @@ async function unsubscribe(result) {
     // ingore the error because the lambda is a separate system
     // the error should not prevent, or affect the cms model lifecycle
     // only print the error message to console
-    log.error(error);
+    strapi.log.error(error);
   }
 }
 
@@ -100,7 +100,7 @@ async function subscribe(result) {
     // ingore the error because the lambda is a separate system
     // the error should not prevent, or affect the cms model lifecycle
     // only print the error message to console
-    log.error(error);
+    strapi.log.error(error);
   }
 }
 
